@@ -35,7 +35,7 @@ def create_task(task_in: TaskCreate, db: Session = Depends(get_db)):
 def list_tasks(db: Session = Depends(get_db)):
     return db.scalars(select(models.Task)).all()
 
-@app.get("/tasks{task_id}", response_model=TaskRead)
+@app.get("/tasks/{task_id}", response_model=TaskRead)
 def get_task(task_id: int, db: Session = Depends(get_db)):
     task = db.get(models.Task, task_id)
     if not task:
