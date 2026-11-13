@@ -1,9 +1,9 @@
-#The table
+#The table or what's stored
 
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String
 
-from database import Base
+from app.database import Base
 
 class Task(Base):
     __tablename__ = "tasks"
