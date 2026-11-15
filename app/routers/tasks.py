@@ -25,17 +25,12 @@ def list_tasks(db: Session = Depends(get_db)):
 
 @router.get("/{task_id}", response_model=TaskRead)
 def get_task(task_id: int, db: Session = Depends(get_db)):
-    task = db.get(models.Task, task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
-    return task
+    return get_task_or_40(task_id, db)
 
 
 @router.put("/{task_id}", response_model=TaskRead)
 def update_task(task_id: int, task_in: TaskCreate, db: Session = Depends(get_db)):
-    task = db.get(models.Task, task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
+    return get_task_or_40(task_id, db)
     task.title = task_in.title
     task.description = task_in.description
     task.done = task_in.done
@@ -46,8 +41,13 @@ def update_task(task_id: int, task_in: TaskCreate, db: Session = Depends(get_db)
 
 @router.delete("/{task_id}", status_code=204)
 def delete_task(task_id: int, db: Session = Depends(get_db)):
+    return get_task_or_40(task_id, db)
+    db.delete(task)
+    db.commit()
+
+
+def get_task_or_40(task_id: int, db: Session) -> models.Task:
     task = db.get(models.Task, task_id)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
-    db.delete(task)
-    db.commit()
+    return task
