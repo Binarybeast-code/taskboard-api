@@ -4,7 +4,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     database_url: str = "sqlite:///./taskboard.db"  # sqlite database file will be created in the current directory
     app_name: str = "Task Board API"
-
+    secret_key: str
+    algorithm: str = "HS256"
+    access_token_expire_minutes: int = 30
     model_config = SettingsConfigDict(env_file=".env")
 
 

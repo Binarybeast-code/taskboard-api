@@ -1,0 +1,4 @@
+name: TaskBoard-api-test
+values:
+  - key: base_url
+    value: ''
