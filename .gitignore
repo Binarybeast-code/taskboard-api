@@ -6,3 +6,5 @@ __pycache__/
 *.db
 .ruff_cache/
 .postman/
+postman/environments/
+postman/globals/
