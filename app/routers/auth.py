@@ -30,7 +30,7 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=Token)
 def login(
-    form: OAuth2PasswordRequestForm = Depends(get_db), db: Session = Depends(get_db)
+    form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
 
     user = db.scalar(select(models.User).where(models.User.username == form.username))
@@ -41,4 +41,4 @@ def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    return Token(access_Token=create_access_token(str(user.i)), token_type="bearer")
+    return Token(access_token=create_access_token(str(user.id)), token_type="bearer")
