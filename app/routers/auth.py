@@ -29,9 +29,7 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/login", response_model=Token)
-def login(
-    form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
-):
+def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
 
     user = db.scalar(select(models.User).where(models.User.username == form.username))
     if not user or not verify_password:
