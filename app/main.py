@@ -2,10 +2,10 @@ from fastapi import FastAPI
 
 from app import models  # noqa: F401 (loads the models so create_all sees them)
 from app.config import settings
-from app.database import Base, engine
+#from app.database import Base, engine
 from app.routers import tasks, auth
 
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title=settings.app_name)
 app.include_router(auth.router)
